@@ -1,5 +1,5 @@
 resource "aws_default_security_group" "default" {
-  vpc_id        = aws_vpc.devkit-vpc.id
+  vpc_id        = aws_vpc.bastion-vpc.id
 
   ingress {
     protocol  = -1
@@ -22,7 +22,7 @@ resource "aws_default_security_group" "default" {
 resource "aws_security_group" "allow_all_ssh" {
   name          = "allow_all_ssh"
   description   = "Allow inbound SSH traffic from ALL"
-  vpc_id        = aws_vpc.devkit-vpc.id
+  vpc_id        = aws_vpc.bastion-vpc.id
 
   ingress {
     from_port   = 22
