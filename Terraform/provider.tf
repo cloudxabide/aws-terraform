@@ -9,7 +9,7 @@ terraform {
 
 # Configure the AWS Provider
 provider "aws" {
-  region = var.aws_region 
- shared_credentials_file = "$HOME/.aws/credentials"
-  profile                 = "ciol-jradtke"
+  region                  = var.aws_region 
+  shared_credentials_file = "$HOME/.aws/credentials"
+  profile                 = var.aws_profile
 }

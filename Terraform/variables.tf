@@ -2,15 +2,34 @@
 #  NOTE:  A number of these "lists" will be dynamically cataloged later
 #         Ex.  If you have 2 AZ listed, the vpc.tf will create 2 public subnets
 #              If you have 3 AZ listed, then it will create 3
-#         The farther down this file, the less likely it is that you should need to modify the value
-variable "aws_region" {
-  default   = "us-east-1"
+#         The farther down this file, the less likely it is that you 
+#           should need to modify the value that is being set.
+
+variable "aws_profile" {
+  default = "jradtke-admin"
+}
+resource "aws_key_pair" "blkbrd" {
+  key_name   = "blkbrd"
+  public_key = file("~/.ssh/blkbrd.pub")
 }
 
+variable "aws_region" {
+  default   = "us-gov-west-1"
+}
 variable "availability_zones" {
   type      = list
-  default   = ["us-east-1", "us-east-2", "us-west-1", "us-west-2"]
+  default   = ["us-gov-east-1a", "us-gov-east-1b", "us-gov-east-1c", "us-gov-west-1a", "us-gov-west-1b", "us-gov-west-1c"]
 }
+
+variable "domain_name_tld" {
+  type      = string
+  default   = "clouditoutloud.com"
+}
+# 
+# =============================================================================
+## TYPICALLY MODIFIED VARIABLES - END
+# =============================================================================
+#
 
 variable "vpc_cidr" {
   default   = "10.160.0.0/16"
@@ -22,17 +41,13 @@ variable "subnets_public_cidr" {
 }
 
 # =============================================================================
-variable "domain_name_tld" {
-  type      = string
-  default   = "clouditoutloud.com"
-}
+data "aws_ami_ids" "rhel8-ami" {
+  owners = ["219670896067"]
 
-# =============================================================================
-# aws ec2 describe-images --owners 309956199498 --query 'sort_by(Images, &CreationDate)[*].[CreationDate,Name,ImageId]' --filters "Name=name,Values=RHEL-7.8*" --region us-east-1 --output table
-# aws ec2 describe-images --owners 309956199498 --query 'sort_by(Images, &CreationDate)[*].[ImageId]' --filters "Name=name,Values=RHEL-7.8_HVM_GA*" --region us-east-1 --output text
-variable "rhel78-ami" {
-  type      = string
-  default   = "ami-08e923f2f38197e46"
+  filter {
+    name   = "name"
+    values = ["RHEL-8.2_HVM-*x86_64*"]
+  }
 }
 
 variable "instance_type_bastion" {
