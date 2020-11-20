@@ -11,3 +11,17 @@ $ cat ~/.gitignore_global
 terraform.tfstate
 terraform.tfstate.backup
 ```
+
+## How to use this
+Copy the Terraform directory somewhere handy
+```
+mkdir $HOME/Working/
+cp -R Terraform $HOME/Working/
+cd $HOME/Working/Terraform
+vi variables.tf
+terraform init
+terraform plan
+terraform apply
+```
+
+Once it is complete, you should have a publicly accessible EC2 instance (VPC, Subnet, InternetGateway)

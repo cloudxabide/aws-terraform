@@ -1,4 +1,4 @@
-resource "aws_vpc" "bastion-vpc" {
+resource "aws_vpc" "staging-vpc" {
     cidr_block           = "10.0.0.0/16"
     enable_dns_support   = "true" # gives you an internal domain name support
     enable_dns_hostnames = "true" # gives you an internal host name support

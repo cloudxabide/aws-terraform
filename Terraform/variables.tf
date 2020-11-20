@@ -1,7 +1,4 @@
 # variables.tf
-#  NOTE:  A number of these "lists" will be dynamically cataloged later
-#         Ex.  If you have 2 AZ listed, the vpc.tf will create 2 public subnets
-#              If you have 3 AZ listed, then it will create 3
 #         The farther down this file, the less likely it is that you 
 #           should need to modify the value that is being set.
 
@@ -18,7 +15,7 @@ variable "aws_region" {
 }
 variable "availability_zones" {
   type      = list
-  default   = ["us-gov-east-1a", "us-gov-east-1b", "us-gov-east-1c", "us-gov-west-1a", "us-gov-west-1b", "us-gov-west-1c"]
+  default   = ["us-gov-east-1a"]
 }
 
 variable "domain_name_tld" {
@@ -37,7 +34,7 @@ variable "vpc_cidr" {
 
 variable "subnets_public_cidr" {
   type      = list
-  default   = ["10.160.0.0/22", "10.160.4.0/22", "10.160.8.0/22"]
+  default   = ["10.160.0.0/22"]
 }
 
 # =============================================================================
@@ -50,7 +47,7 @@ data "aws_ami_ids" "rhel8-ami" {
   }
 }
 
-variable "instance_type_bastion" {
+variable "instance_type_staging" {
   type      = string
   default   = "t3.micro"
 }
