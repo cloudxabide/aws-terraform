@@ -1,3 +1,5 @@
+# provider.tf
+# Identify provider and credentials 
 terraform {
   required_providers {
     aws = {
@@ -10,6 +12,6 @@ terraform {
 # Configure the AWS Provider
 provider "aws" {
   region                  = var.aws_region 
-  shared_credentials_file = "$HOME/.aws/credentials"
   profile                 = var.aws_profile
+  shared_credentials_file = "$HOME/.aws/credentials"
 }

@@ -1,43 +1,79 @@
-resource "aws_default_security_group" "default" {
-  vpc_id        = aws_vpc.staging-vpc.id
+# security_groups.tf
+
+resource "aws_security_group" "default" {
+  vpc_id        = aws_vpc.ciol_devkit.id
 
   ingress {
-    protocol  = -1
-    self      = true
-    from_port = 0
-    to_port   = 0
+    protocol    = -1
+    self        = true
+    from_port   = 0
+    to_port     = 0
+    cidr_blocks = [var.source_cidr_block]
   }
 
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.destination_cidr_block]
   }
  
   tags = {
-    Name        = "Default Security Group"
+    Name        = "${var.project_name} - Default Security Group"
+  }
 }
 
 resource "aws_security_group" "allow_all_ssh" {
   name          = "allow_all_ssh"
   description   = "Allow inbound SSH traffic from ALL"
-  vpc_id        = aws_vpc.staging-vpc.id
+  vpc_id        = aws_vpc.ciol_devkit.id
 
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = var.source_cidr
+    cidr_blocks = [var.source_cidr_block]
   }
   egress {
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = [var.destination_cidr_block]
   }
 
   tags = {
-    Name        = "Ingress Rule for SSH"
+    Name        = "${var.project_name} - Ingress Rule for SSH"
+  }
+}
+
+#########################
+##### NACL - default
+#########################
+
+resource "aws_default_network_acl" "default" {
+#  vpc_id                  = aws_vpc.ciol_devkit.id
+  default_network_acl_id  = aws_vpc.ciol_devkit.default_network_acl_id
+  subnet_ids              = [ aws_subnet.public-1.id ]
+
+  ingress {
+    protocol   = -1
+    rule_no    = 100
+    action     = "allow"
+    from_port  = 0
+    to_port    = 0
+    cidr_block = var.source_cidr_block
+  }
+
+  egress {
+    protocol   = -1
+    rule_no    = 100
+    action     = "allow"
+    from_port  = 0
+    to_port    = 0
+    cidr_block = var.destination_cidr_block
+  }
+
+  tags = {
+    Name        = "${var.project_name} - NACL"
   }
 }
