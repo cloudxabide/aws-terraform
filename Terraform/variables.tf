@@ -11,6 +11,12 @@ variable "project_name" {
 variable "project_owner" {
   description = "Owner of the infrastructure being deployed"
 }
+variable "project_env" {
+  description = <<DESCRIPTION
+Free form string to identify the *environment* this will be tagged as.
+
+DESCRIPTION
+}
 variable "domain_name_tld" {
   description = "Top Level Domain Name to use (where valid)"
 }
@@ -31,9 +37,9 @@ variable "public_key_path" {
 Path to SSH public key file.
 
 Example: ~/.ssh/my-environment.pub
+
 DESCRIPTION
 }
-
 variable "ami_owner_redhat_rhel" {
   description = <<DESCRIPTION
 AWS Owner ID for the account providing the Red Hat Ent Linux AMI

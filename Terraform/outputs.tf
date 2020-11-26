@@ -5,7 +5,3 @@ output "public_dns" {
   value       = aws_instance.ciol-staging.*.public_dns
 }
 
-output "key_pair_name" {
-  description = "The name of the key-pair used to create this IaC"
-  value       = var.key_pair_name
-}

@@ -10,6 +10,8 @@ resource "aws_vpc" "ciol_devkit" {
 
     tags = {
         Name             = "${var.project_name} - Staging VPC"
+        Owner            = var.project_owner
+        Environment      = var.project_env
     }
 }
 
