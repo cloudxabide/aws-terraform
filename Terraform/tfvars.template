@@ -1,3 +1,6 @@
+# rename this to <something>.tfvars
+# terraform apply --var-file=./<something>.tfvars
+
 project_name      = ""
 project_owner     = ""
 project_env       = ""
