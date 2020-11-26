@@ -8,9 +8,9 @@ resource "aws_instance" "ciol-staging" {
   ]
   key_name                 = aws_key_pair.default.key_name
   subnet_id                = aws_subnet.public-1.id
-
   tags = {
-    Name = "${var.project_name} - Staging Bastion"
-    Purpose = "${var.project_name} - Staging Bastion for DevKit"
+    Name             = "${var.project_name} - EC2 Instance"
+    Owner            = var.project_owner
+    Environment      = var.project_env
   }
 }

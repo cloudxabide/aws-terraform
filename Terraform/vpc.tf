@@ -20,6 +20,8 @@ resource "aws_internet_gateway" "ciol_devkit" {
   vpc_id          = aws_vpc.ciol_devkit.id
   tags = {
     Name          = "${var.project_name} - Internet Gateway"
+    Owner            = var.project_owner
+    Environment      = var.project_env
   }
 }
 
@@ -28,6 +30,8 @@ resource "aws_route_table" "ciol_devkit" {
   vpc_id          = aws_vpc.ciol_devkit.id
   tags = {
     Name          = "${var.project_name} - VPC Route Table"
+    Owner            = var.project_owner
+    Environment      = var.project_env
   }
 }
 

@@ -17,9 +17,11 @@ resource "aws_security_group" "default" {
     protocol    = "-1"
     cidr_blocks = [var.destination_cidr_block]
   }
- 
+
   tags = {
-    Name        = "${var.project_name} - Default Security Group"
+    Name             = "${var.project_name} - VPC Route Table"
+    Owner            = var.project_owner
+    Environment      = var.project_env
   }
 }
 
@@ -40,9 +42,10 @@ resource "aws_security_group" "allow_all_ssh" {
     protocol    = "-1"
     cidr_blocks = [var.destination_cidr_block]
   }
-
   tags = {
-    Name        = "${var.project_name} - Ingress Rule for SSH"
+    Name             = "${var.project_name} - VPC Route Table"
+    Owner            = var.project_owner
+    Environment      = var.project_env
   }
 }
 
@@ -72,8 +75,9 @@ resource "aws_default_network_acl" "default" {
     to_port    = 0
     cidr_block = var.destination_cidr_block
   }
-
   tags = {
-    Name        = "${var.project_name} - NACL"
+    Name             = "${var.project_name} - VPC Route Table"
+    Owner            = var.project_owner
+    Environment      = var.project_env
   }
 }
