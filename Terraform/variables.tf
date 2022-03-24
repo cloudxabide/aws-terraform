@@ -1,8 +1,9 @@
 # variables.tf
-#         The farther down this file, the less likely it is that you 
-#           should need to modify the value that is being set.
-#     Trying to follow Terraform Naming Conventions
-#     DO NOT POPULATE THE VARIABLES IN THIS FILE - use terraform.tfvars
+#  DO NOT POPULATE THE VARIABLES IN THIS FILE - use terraform.tfvars
+# 
+#  The farther down this file, the less likely it is that you 
+#    should need to modify the value that is being set.
+#  Trying to follow Terraform Naming Conventions
 # 
 
 variable "project_name" {
